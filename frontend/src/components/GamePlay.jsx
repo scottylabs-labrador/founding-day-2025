@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './GamePlay.css';
 
-function GamePlay({ question, questionNumber, totalQuestions, playerScore, onSubmitAnswer }) {
+function GamePlay({ question, questionNumber, totalQuestions, playerScore, onSubmitAnswer, lastAnswerCorrect }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [timeRemaining, setTimeRemaining] = useState(question.timeLimit);
   const [hasAnswered, setHasAnswered] = useState(false);
@@ -86,6 +86,17 @@ function GamePlay({ question, questionNumber, totalQuestions, playerScore, onSub
           </button>
         ))}
       </div>
+
+      {question.correctAnswer !== undefined && lastAnswerCorrect !== null && (
+        <div className={`correctness-indicator ${lastAnswerCorrect ? 'correct-answer' : 'incorrect-answer'}`}>
+          <div className="correctness-icon">
+            {lastAnswerCorrect ? '✓' : '✗'}
+          </div>
+          <div className="correctness-text">
+            {lastAnswerCorrect ? 'Correct!' : 'Incorrect'}
+          </div>
+        </div>
+      )}
 
       {question.correctAnswer !== undefined && (
         <div className="answer-explanation">

@@ -44,9 +44,9 @@ function WaitingRoom({ gameCode, nickname, playerCount, isHost, onStartGame }) {
         )}
 
         <div className="waiting-animation">
-          <div className="dot-pulse">
-            <div className="dot-pulse__dot"></div>
-          </div>
+          <div className="dot-pulse"></div>
+          <div className="dot-pulse"></div>
+          <div className="dot-pulse"></div>
         </div>
       </div>
     </div>

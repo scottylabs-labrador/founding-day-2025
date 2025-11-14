@@ -7,89 +7,106 @@
 }
 
 .waiting-container {
-  background: white;
-  border-radius: 20px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
   padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
   max-width: 600px;
   width: 100%;
-  text-align: center;
 }
 
 .waiting-container h1 {
-  color: #667eea;
-  font-size: 2.5em;
-  margin-bottom: 30px;
+  color: var(--text-primary);
+  font-size: 2em;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: 700;
 }
 
 .game-code-display {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 30px;
+  background: var(--primary-color);
+  padding: 24px;
+  border-radius: var(--radius-md);
+  margin-bottom: 32px;
 }
 
 .game-code-label {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1em;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875em;
+  font-weight: 500;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .game-code {
   color: white;
-  font-size: 3em;
-  font-weight: bold;
-  letter-spacing: 5px;
-  font-family: monospace;
+  font-size: 2.5em;
+  font-weight: 700;
+  letter-spacing: 8px;
+  font-family: 'Courier New', monospace;
 }
 
 .player-info {
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+  text-align: center;
 }
 
 .welcome-text {
-  color: #333;
-  font-size: 1.3em;
-  margin-bottom: 15px;
+  color: var(--text-primary);
+  font-size: 1.125em;
+  margin-bottom: 12px;
+  font-weight: 500;
 }
 
 .player-count {
-  color: #666;
-  font-size: 1.5em;
-  font-weight: bold;
+  color: var(--text-secondary);
+  font-size: 1em;
+  font-weight: 600;
+  padding: 8px 16px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-sm);
+  display: inline-block;
 }
 
 .waiting-instructions {
-  background: #f5f5f5;
+  background: var(--bg-primary);
   padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 30px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  border: 1px solid var(--border-color);
 }
 
 .waiting-instructions p {
-  color: #666;
-  margin-bottom: 10px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
   line-height: 1.6;
+  font-size: 0.875em;
+}
+
+.waiting-instructions p:last-child {
+  margin-bottom: 0;
 }
 
 .start-game-button {
   width: 100%;
-  padding: 18px;
-  font-size: 1.3em;
-  font-weight: bold;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 14px 24px;
+  font-size: 1em;
+  font-weight: 600;
+  background: var(--success-color);
   color: white;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 20px;
+  transition: all 0.2s ease;
+  margin-bottom: 16px;
 }
 
 .start-game-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(245, 87, 108, 0.4);
+  background: #059669;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .start-game-button:disabled {
@@ -100,63 +117,34 @@
 .waiting-animation {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  margin-top: 16px;
+  gap: 4px;
 }
 
 .dot-pulse {
-  position: relative;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #667eea;
-  animation: dotPulse 1.5s infinite ease-in-out;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  animation: dotPulse 1.4s infinite ease-in-out;
 }
 
-.dot-pulse::before,
-.dot-pulse::after {
-  content: '';
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #667eea;
+.dot-pulse:nth-child(2) {
+  animation-delay: 0.2s;
 }
 
-.dot-pulse::before {
-  left: -15px;
-  animation: dotPulseBefore 1.5s infinite ease-in-out;
-}
-
-.dot-pulse::after {
-  left: 15px;
-  animation: dotPulseAfter 1.5s infinite ease-in-out;
+.dot-pulse:nth-child(3) {
+  animation-delay: 0.4s;
 }
 
 @keyframes dotPulse {
   0%, 80%, 100% {
     opacity: 0.3;
+    transform: scale(0.8);
   }
   40% {
     opacity: 1;
-  }
-}
-
-@keyframes dotPulseBefore {
-  0%, 80%, 100% {
-    opacity: 0.3;
-  }
-  20% {
-    opacity: 1;
-  }
-}
-
-@keyframes dotPulseAfter {
-  0%, 80%, 100% {
-    opacity: 0.3;
-  }
-  60% {
-    opacity: 1;
+    transform: scale(1);
   }
 }

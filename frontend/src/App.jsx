@@ -23,6 +23,7 @@ function App() {
   const [playerScore, setPlayerScore] = useState(0);
   const [error, setError] = useState('');
   const [isHost, setIsHost] = useState(false);
+  const [lastAnswerCorrect, setLastAnswerCorrect] = useState(null);
 
   useEffect(() => {
     // Initialize socket connection
@@ -65,10 +66,12 @@ function App() {
       });
       setQuestionNumber(data.questionNumber);
       setTotalQuestions(data.totalQuestions);
+      setLastAnswerCorrect(null); // Reset for new question
     });
 
     newSocket.on('answer-submitted', (data) => {
       setPlayerScore(data.totalScore);
+      setLastAnswerCorrect(data.isCorrect);
     });
 
     newSocket.on('answer-reveal', (data) => {
@@ -188,6 +191,7 @@ function App() {
           totalQuestions={totalQuestions}
           playerScore={playerScore}
           onSubmitAnswer={submitAnswer}
+          lastAnswerCorrect={lastAnswerCorrect}
         />
       )}
 

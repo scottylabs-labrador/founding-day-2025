@@ -22,76 +22,146 @@ const players = new Map();
 // Sample trivia questions
 const triviaQuestions = [
   {
-    id: 1,
-    question: "What year was Carnegie Mellon University founded?",
-    answers: ["1900", "1912", "1923", "1935"],
-    correctAnswer: 1,
-    timeLimit: 20
+    "id": 1,
+    "question": "What date was ScottyLabs officially founded?",
+    "answers": ["November 14, 2010", "November 14, 2011", "February 10, 2012", "November 14, 2012"],
+    "correctAnswer": 1,
+    "timeLimit": 20
   },
   {
-    id: 2,
-    question: "What is the name of CMU's mascot?",
-    answers: ["Scottie Dog", "Tartan", "Scotty the Scottie Dog", "Andrew Carnegie"],
-    correctAnswer: 2,
-    timeLimit: 20
+    "id": 2,
+    "question": "Who were the two co-founders of ScottyLabs?",
+    "answers": ["Jeff Cooper and Julia Teitelbaum", "Amy Quispe and Vinay Vemuri", "Drew Inglis and Quintin Carlson", "Richard Guo and Yoshi Torralva"],
+    "correctAnswer": 1,
+    "timeLimit": 20
   },
   {
-    id: 3,
-    question: "Which CMU alumnus co-founded Sun Microsystems?",
-    answers: ["Steve Jobs", "Bill Gates", "Andy Bechtolsheim", "Larry Page"],
-    correctAnswer: 2,
-    timeLimit: 20
+    "id": 3,
+    "question": "What was the first ScottyLabs tech project? (that we know of)",
+    "answers": ["CMUCourses", "CMUEats", "CMUMaps", "Lost and Found"],
+    "correctAnswer": 1,
+    "timeLimit": 20
   },
   {
-    id: 4,
-    question: "What is CMU's official tartan pattern?",
-    answers: ["Royal Stewart", "Carnegie Tartan", "Black Watch", "Dress Gordon"],
-    correctAnswer: 1,
-    timeLimit: 20
+    "id": 4,
+    "question": "What inspired Vinay Vemuri to create ScottyLabs?",
+    "answers": ["A class project that went viral", "His internship at Google Boston", "Winning a hackathon at MIT", "A conversation with Randy Pausch"],
+    "correctAnswer": 1,
+    "timeLimit": 20
   },
   {
-    id: 5,
-    question: "In what year was ScottyLabs founded?",
-    answers: ["2009", "2010", "2011", "2012"],
-    correctAnswer: 1,
-    timeLimit: 20
+    "id": 5,
+    "question": "When was the FIRST TartanHacks held?",
+    "answers": ["January 2011", "February 2012", "November 2011", "February 2013"],
+    "correctAnswer": 1,
+    "timeLimit": 20
   },
   {
-    id: 6,
-    question: "What programming language is known for its use at CMU's School of Computer Science?",
-    answers: ["Java", "Python", "SML", "C++"],
-    correctAnswer: 2,
-    timeLimit: 20
+    "id": 6,
+    "question": "What percentage of participants at the FIRST TartanHacks (2012) were women?",
+    "answers": ["10%", "15%", "22%", "Nearly 30%"],
+    "correctAnswer": 3,
+    "timeLimit": 20
   },
   {
-    id: 7,
-    question: "What is the name of CMU's student union building?",
-    answers: ["Cohon University Center", "Wean Hall", "Gates Center", "Tepper Quad"],
-    correctAnswer: 0,
-    timeLimit: 20
+    "id": 7,
+    "question": "How did Julia Teitelbaum (DC'14) get recruited to design the first TartanHacks website?",
+    "answers": ["She won a design competition", "She was recommended by a professor", "Jeff Cooper rescued her when she got stuck in the rain", "She responded to a flyer in the Fine Arts building"],
+    "correctAnswer": 2,
+    "timeLimit": 20
   },
   {
-    id: 8,
-    question: "Which of these is NOT a CMU college?",
-    answers: ["Dietrich College", "Mellon College of Science", "Tepper School of Business", "School of Medicine"],
-    correctAnswer: 3,
-    timeLimit: 20
+    "id": 8,
+    "question": "The 'First Penguin Award' given at TartanHacks honors which famous CMU professor?",
+    "answers": ["Luis von Ahn", "Randy Pausch", "Andrew Carnegie", "Raj Reddy"],
+    "correctAnswer": 1,
+    "timeLimit": 20
   },
   {
-    id: 9,
-    question: "What does 'ScottyLabs' primarily focus on?",
-    answers: ["Sports", "Technology and Innovation", "Arts", "Business"],
-    correctAnswer: 1,
-    timeLimit: 20
+    "id": 9,
+    "question": "What unusual event happened 23 hours into TartanHacks 2023?",
+    "answers": ["A power outage forced evacuation", "A bomb threat caused by dance team sandbag props", "A fire alarm from burnt pizza", "A surprise visit from a tech CEO"],
+    "correctAnswer": 1,
+    "timeLimit": 20
   },
   {
-    id: 10,
-    question: "What is CMU's famous spring carnival event called?",
-    answers: ["Spring Fling", "Booth", "Carnival Week", "Spring Fest"],
-    correctAnswer: 1,
-    timeLimit: 20
+    "id": 10,
+    "question": "Which famous hacker spoke at ScottyLabs' SkillSwap Weekend in Fall 2012, attracting 400+ students who 'camped out' to hear him?",
+    "answers": ["Kevin Mitnick", "Edward Snowden", "George Hotz", "Aaron Swartz"],
+    "correctAnswer": 2,
+    "timeLimit": 20
+  },
+  {
+    "id": 11,
+    "question": "When and why was the current version of CMUCourses built?",
+    "answers": ["Summer 2019 as a senior thesis project", "March 2020 during COVID extended spring break by two freshmen", "Fall 2021 with university funding", "January 2022 as a TartanHacks winning project"],
+    "correctAnswer": 1,
+    "timeLimit": 20
+  },
+  {
+    "id": 12,
+    "question": "Which ScottyLabs product is the OLDEST, having been maintained since 2013?",
+    "answers": ["CMUMaps", "CMUCourses", "CMUEats", "Lost and Found"],
+    "correctAnswer": 2,
+    "timeLimit": 20
+  },
+  {
+    "id": 13,
+    "question": "How many applications did TartanHacks 2025 receive?",
+    "answers": ["762", "1,024", "1,452", "2,000"],
+    "correctAnswer": 2,
+    "timeLimit": 20
+  },
+  {
+    "id": 14,
+    "question": "What is the name of the prize given to the team that took 'the biggest gamble while not meeting its goals' (inspired by Randy Pausch's philosophy of glorious failure)?",
+    "answers": ["The Risk Taker Award", "The Bold Innovator Prize", "The First Penguin Award", "The Moonshot Medal"],
+    "correctAnswer": 2,
+    "timeLimit": 20
+  },
+  {
+    "id": 15,
+    "question": "What is the 'Spiciest Meme Award' at TartanHacks worth?",
+    "answers": ["$10", "$30", "$50", "$100"],
+    "correctAnswer": 1,
+    "timeLimit": 20
+  },
+  {
+    "id": 16,
+    "question": "Who dramatically transformed ScottyLabs' branding in 2019 by creating a new TartanHacks logo 'within weeks' that was described as 'like night and day'?",
+    "answers": ["Shannon Lin", "Richard Guo", "Yoshi Torralva", "Akshath Jain"],
+    "correctAnswer": 2,
+    "timeLimit": 20
+  },
+  {
+    "id": 17,
+    "question": "What is the name of ScottyLabs' 'moonshot committee' for ambitious startup-like ScottyLabs projects?",
+    "answers": ["Foundry", "Terrier", "Labrador", "Project Olympus"],
+    "correctAnswer": 2,
+    "timeLimit": 20
+  },
+  {
+    "id": 18,
+    "question": "How many CMU students use ScottyLabs apps (CMUCourses, CMUEats, CMUMaps) every month?",
+    "answers": ["Around 2,000", "Around 5,000", "Over 10,000", "Over 25,000"],
+    "correctAnswer": 2,
+    "timeLimit": 20
+  },
+  {
+    "id": 19,
+    "question": "What is the dollar amount of the 'Scott Krulcik Grand Prize' awarded at TartanHacks 2023?",
+    "answers": ["$500", "$1,000", "$2,000", "$5,000"],
+    "correctAnswer": 2,
+    "timeLimit": 20
+  },
+  {
+    "id": 20,
+    "question": "What percentage of CMU's undergraduate population is reached by ScottyLabs' mailing list?",
+    "answers": ["10%", "15%", "22%", "30%"],
+    "correctAnswer": 2,
+    "timeLimit": 20
   }
-];
+]
 
 // Game state constants
 const GAME_STATES = {
