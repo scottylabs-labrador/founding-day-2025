@@ -112,7 +112,10 @@ function createGame(gameCode) {
     currentQuestionIndex: -1,
     questions: [...triviaQuestions],
     startTime: null,
-    questionStartTime: null
+    questionStartTime: null,
+    questionTimer: null,
+    revealTimer: null,
+    leaderboardTimer: null
   };
 }
 
@@ -137,6 +140,35 @@ function calculateScore(timeElapsed, timeLimit) {
   const baseScore = 1000;
   const timeBonus = Math.max(0, Math.floor((1 - timeElapsed / timeLimit) * 500));
   return baseScore + timeBonus;
+}
+
+// Check if all players have answered the current question
+function checkAllPlayersAnswered(gameCode, questionId) {
+  const game = games.get(gameCode);
+  if (!game || game.state !== GAME_STATES.QUESTION) {
+    return;
+  }
+
+  const playersWhoAnswered = game.players.filter(player => 
+    player.answers.find(a => a.questionId === questionId)
+  ).length;
+
+  const totalPlayers = game.players.length;
+
+  console.log(`${playersWhoAnswered}/${totalPlayers} players answered question ${questionId} in game ${gameCode}`);
+
+  if (playersWhoAnswered === totalPlayers && totalPlayers > 0) {
+    console.log(`All players answered! Auto-advancing question ${questionId} in game ${gameCode}`);
+    
+    // Clear the existing timer
+    if (game.questionTimer) {
+      clearTimeout(game.questionTimer);
+      game.questionTimer = null;
+    }
+
+    // Immediately reveal the answer
+    revealAnswer(gameCode);
+  }
 }
 
 // REST API endpoints
@@ -287,6 +319,9 @@ io.on('connection', (socket) => {
     });
 
     console.log(`Player ${player.nickname} answered question ${questionId}: ${isCorrect ? 'correct' : 'incorrect'}`);
+
+    // Check if all players have answered
+    checkAllPlayersAnswered(gameCode, questionId);
   });
 
   // Get current leaderboard
@@ -356,7 +391,8 @@ function startQuestion(gameCode) {
   console.log(`Question ${game.currentQuestionIndex + 1} started for game ${gameCode}`);
 
   // After time limit, reveal answer
-  setTimeout(() => {
+  game.questionTimer = setTimeout(() => {
+    game.questionTimer = null;
     revealAnswer(gameCode);
   }, currentQuestion.timeLimit * 1000);
 }
@@ -366,6 +402,11 @@ function revealAnswer(gameCode) {
   const game = games.get(gameCode);
   
   if (!game) return;
+
+  // Only reveal if we're still in question state
+  if (game.state !== GAME_STATES.QUESTION) {
+    return;
+  }
 
   game.state = GAME_STATES.ANSWER_REVEAL;
   const currentQuestion = game.questions[game.currentQuestionIndex];
@@ -378,7 +419,8 @@ function revealAnswer(gameCode) {
   console.log(`Answer revealed for question ${game.currentQuestionIndex + 1} in game ${gameCode}`);
 
   // Show leaderboard after 3 seconds
-  setTimeout(() => {
+  game.revealTimer = setTimeout(() => {
+    game.revealTimer = null;
     showLeaderboard(gameCode);
   }, 3000);
 }
@@ -407,7 +449,8 @@ function showLeaderboard(gameCode) {
   console.log(`Leaderboard shown for game ${gameCode}`);
 
   // Move to next question or end game after 5 seconds
-  setTimeout(() => {
+  game.leaderboardTimer = setTimeout(() => {
+    game.leaderboardTimer = null;
     game.currentQuestionIndex++;
     
     if (game.currentQuestionIndex < game.questions.length) {
@@ -423,6 +466,11 @@ function endGame(gameCode) {
   const game = games.get(gameCode);
   
   if (!game) return;
+
+  // Clear any pending timers
+  if (game.questionTimer) clearTimeout(game.questionTimer);
+  if (game.revealTimer) clearTimeout(game.revealTimer);
+  if (game.leaderboardTimer) clearTimeout(game.leaderboardTimer);
 
   game.state = GAME_STATES.FINISHED;
 
