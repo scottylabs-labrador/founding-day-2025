@@ -7,7 +7,7 @@ import GamePlay from './components/GamePlay';
 import Leaderboard from './components/Leaderboard';
 import GameFinished from './components/GameFinished';
 
-const SOCKET_URL = 'http://localhost:3000';
+const SOCKET_URL = 'https://founding-api.scottylabs.org';
 
 function App() {
   const [socket, setSocket] = useState(null);
